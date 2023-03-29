@@ -31,20 +31,20 @@ const TaskForm = ({ addTask }) => {
   };
   return (
     <div className='taskform'>
-    <form onSubmit={handleSubmit}>
+    <form>
       <label>
-        <span>Title:{values.title+ '-' +BASE_URL+'addtask'}</span>
+        <span>Cím:</span>
         <input type="text" name="title" value={values.title} onChange={handleChange} />
       </label>
       <label>
-        <span>Description:{values.description}</span>
-        <textarea name="description" value={values.description} onChange={handleChange}></textarea>
+        <span>Leírás:</span>
+        <textarea type="text" name="description" value={values.description} onChange={handleChange}></textarea>
       </label>
       <label>
-        <span>Tervezett időpont{values.deadline}</span>
+        <span>Tervezett időpont</span>
         <input type="date" name="deadline" value={values.deadline} onChange={handleChange} />
       </label>
-      <button type="submit" onClick={handleSubmit}>Hozzáadás</button>
+      <button className="m-2" onClick={handleSubmit}>Hozzáadás</button>
     </form>
     </div>
   );

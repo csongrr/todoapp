@@ -1,31 +1,48 @@
-import React from 'react';
+import React from "react";
 
 export default function List({ todos }) {
   return (
-    <div className='text-center container'>
-      <h2>Todo List</h2>
-      <div className='header row'>
-        <div className='col-2'>Név</div>
-        <div className='col-2'>Leírás</div>
-        <div className='col-2'>Határidő</div>
-        <div className='col-2'>Állapot</div>
-        <div className='col-2'></div>
-      </div>
-      <div>
-        {todos.map(todo => (
-          <div key={todo.id}>
-            <p>{todo.title}</p>
-            <p>{todo.description}</p>
-            <p>{todo.deadline}</p>
-            <p>{todo.completed ? 'Kész' : 'Nyitott'}</p>
-            <p className='btn-group'>
-              <a className='bi bi-eye-fill btn btn-primary' title="Megtekintés"></a>
-              <a className='bi bi-pencil btn btn-primary' title="Szerkesztés"></a>
-              <a className='bi bi-trash btn btn-primary' title="Törlés"></a>
-            </p>
-          </div>
-        ))}
-      </div>
+    <div className="text-center">
+    <h2>Todo List</h2>
+    <div className="d-flex justify-content-center">
+      <table className="table table-striped">
+        <thead>
+          <tr className="row">
+            <th className="col-2">Név</th>
+            <th className="col-3">Leírás</th>
+            <th className="col-2">Határidő</th>
+            <th className="col-2">Állapot</th>
+            <th className="col-2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {todos.map((todo) => (
+            <tr key={todo.id} className="align-middle row">
+              <td className="col-2">{todo.title}</td>
+              <td className="col-3">{todo.description}</td>
+              <td className="col-2">{todo.deadline}</td>
+              <td className="col-2">{todo.completed ? "Kész" : "Nyitott"}</td>
+              <td className="col p-auto">
+                <div className="btn-group" role="group">
+                <button
+                  className="btn btn-success bi bi-eye"
+                  // onClick={() => setUserData(item)}
+                ></button>
+                <button
+                  className="btn btn-warning bi bi-pencil"
+                  // onClick={() => setUserData(item)}
+                ></button>
+                <button
+                  className="btn btn-danger bi bi-trash3"
+                  // onClick={() => deleteUser(item.id)}
+                ></button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
     </div>
   );
 }

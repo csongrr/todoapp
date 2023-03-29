@@ -9,7 +9,7 @@ function App() {
 
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState({});
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     axios.get(BASE_URL+'todos')
