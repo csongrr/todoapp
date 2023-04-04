@@ -1,9 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
+import { BASE_URL } from '../data';
+import axios from "axios";
 
 export default function List({ todos }) {
+  const [message, setMessage] = useState(null);
+  
+  const deleteTask = (id) =>{
+    console.log(BASE_URL+'todos/'+id);
+    axios.delete(BASE_URL+'todos/'+id)
+    .then(() => setMessage('Sikeres törlés'))
+    .catch(error => {
+      setMessage(error.message);
+      console.error('Hiba történt!', error);
+    });
+  }
+
   return (
     <div className="text-center">
     <h2>Todo List</h2>
+    <div>{message}</div>
+    <button className="mainbutton">Új feladat hozzáadása</button>
     <div className="d-flex justify-content-center">
       <table className="table table-striped">
         <thead>
@@ -34,7 +50,7 @@ export default function List({ todos }) {
                 ></button>
                 <button
                   className="btn btn-danger bi bi-trash3"
-                  // onClick={() => deleteUser(item.id)}
+                  onClick={() => deleteTask(todo.id)}
                 ></button>
                 </div>
               </td>

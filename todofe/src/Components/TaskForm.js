@@ -8,6 +8,7 @@ const TaskForm = ({ addTask }) => {
     description: '',
     deadline: '',
   });
+  const [message, setMessage] = useState(null);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -25,7 +26,7 @@ const TaskForm = ({ addTask }) => {
       console.log(response);
     })
     .catch(function (error) {
-      console.log(error.response.data);
+      setMessage(error.response.data);
     });
     setValues({ title: '', description: '', deadline: '' });
   };
@@ -42,7 +43,7 @@ const TaskForm = ({ addTask }) => {
       </label>
       <label>
         <span>Tervezett időpont</span>
-        <input type="date" name="deadline" value={values.deadline} onChange={handleChange} />
+        <input className="datepicker" type="date" name="deadline" value={values.deadline} onChange={handleChange} />
       </label>
       <button className="m-2" onClick={handleSubmit}>Hozzáadás</button>
     </form>

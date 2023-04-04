@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Todo;
 
@@ -17,8 +17,20 @@ class TodoController extends Controller
 
     public function store(Request $request)
     {
-        $todo = Todo::create($request->all());
-        return response()->json($todo, 201);
+        $validator = Validator::make($request->all(),[
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'deadline' => 'required|date|after:today|date_format:Y-m-d'
+        ]);
+        if($validator->fails()){
+
+            return response()->json($validator->errors(),422);
+            
+        }else{
+
+            $todo = Todo::create($request->all());
+            return response()->json($todo, 201);
+        }
     }
 
     

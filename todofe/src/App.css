@@ -4,7 +4,7 @@
     --turquoise: #11999E;
     --dark: rgba(64, 81, 78, 0.95);
   }
-
+  
 .taskform {
     position: fixed;
     top: 0;
@@ -16,6 +16,19 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
+}
+
+form > button, .mainbutton{
+    color: var(--light);
+    background-color: var(--turquoise);
+    font-size: 20px;
+    border: 1px solid var(--cyan);
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.datepicker{
+    color: var(--turquoise)
 }
 
 .taskform > form {

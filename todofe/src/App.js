@@ -9,23 +9,24 @@ function App() {
 
   const [todos, setTodos] = useState([]);
   const [todo, setTodo] = useState({});
-  const [show, setShow] = useState(true);
-
+  const [show, setShow] = useState(false);
+  const [message, setMessage] = useState(null);
+  
   useEffect(() => {
     axios.get(BASE_URL+'todos')
-      .then(response => {
-        setTodos(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+        .then(response => {
+          setTodos(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
   }, []);
 
   
   return (
     <div className="App">
       {show && <TaskForm />}
-      <List todos={todos}></List>
+      <List todos={todos} message={message}></List>
     </div>
   );
 }
