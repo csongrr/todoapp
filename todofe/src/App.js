@@ -8,25 +8,15 @@ import TaskForm from './Components/TaskForm';
 function App() {
 
   const [todos, setTodos] = useState([]);
-  const [todo, setTodo] = useState({});
+  // const [todo, setTodo] = useState({});
   const [show, setShow] = useState(false);
-  const [message, setMessage] = useState(null);
+  // const [message, setMessage] = useState(null);
   
-  useEffect(() => {
-    axios.get(BASE_URL+'todos')
-        .then(response => {
-          setTodos(response.data);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-  }, []);
-
   
   return (
     <div className="App">
-      {show && <TaskForm />}
-      <List todos={todos} message={message}></List>
+      {show && <TaskForm setShow={setShow} setTodos={setTodos} todos={todos}/>}
+      <List setShow={setShow} todos={todos} setTodos={setTodos}></List>
     </div>
   );
 }

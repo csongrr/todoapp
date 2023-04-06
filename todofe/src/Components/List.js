@@ -1,30 +1,58 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { BASE_URL } from '../data';
 import axios from "axios";
 
-export default function List({ todos }) {
-  const [message, setMessage] = useState(null);
+export default function List({setShow, show}) {
+  const [message, setMessage] = useState({visible: '',class: '', message: '',});
+  const [todos, setTodos] = useState([]);
   
-  const deleteTask = (id) =>{
-    console.log(BASE_URL+'todos/'+id);
-    axios.delete(BASE_URL+'todos/'+id)
-    .then(() => setMessage('Sikeres törlés'))
+  
+  const getTodos = ()=> {
+    axios.get(BASE_URL+'todos')
+    .then(response => {
+      setTodos(response.data);
+    })
     .catch(error => {
-      setMessage(error.message);
-      console.error('Hiba történt!', error);
+      console.error(error);
     });
   }
 
+  function clearMessage() {
+    setMessage({ visible: false, class: "", message: "" });
+  }
+  const deleteTask = (id) =>{
+
+    axios.delete(BASE_URL+'todos/'+id)
+    .then(() => {
+      setMessage({
+        visible: true,
+        class: "bg-success mesdiv",
+        message:  "Sikeres törlés"});
+        getTodos();
+      })
+    .catch(error => {
+      setMessage({
+        visible: true,
+        class: "bg-danger mesdiv",
+        message:  error.message});
+    });
+  }
+
+    useEffect(() => {
+      getTodos();
+  }, []);
+
+
   return (
-    <div className="text-center">
+    <div className="text-center" onClick={() => clearMessage()}>
     <h2>Todo List</h2>
-    <div>{message}</div>
-    <button className="mainbutton">Új feladat hozzáadása</button>
+    {message.visible && <div className={message.class} >{message.message}</div>}
+    <button className="mainbutton" onClick={() => setShow(true)}>Új feladat hozzáadása</button>
     <div className="d-flex justify-content-center">
-      <table className="table table-striped">
+      <table className="table table-striped w-75">
         <thead>
           <tr className="row">
-            <th className="col-2">Név</th>
+            <th className="col-3">Név</th>
             <th className="col-3">Leírás</th>
             <th className="col-2">Határidő</th>
             <th className="col-2">Állapot</th>
@@ -34,19 +62,19 @@ export default function List({ todos }) {
         <tbody>
           {todos.map((todo) => (
             <tr key={todo.id} className="align-middle row">
-              <td className="col-2">{todo.title}</td>
+              <td className="col-3">{todo.title}</td>
               <td className="col-3">{todo.description}</td>
               <td className="col-2">{todo.deadline}</td>
               <td className="col-2">{todo.completed ? "Kész" : "Nyitott"}</td>
-              <td className="col p-auto">
+              <td className="col-2 p-auto">
                 <div className="btn-group" role="group">
                 <button
                   className="btn btn-success bi bi-eye"
-                  // onClick={() => setUserData(item)}
+                  // onClick={() => }
                 ></button>
                 <button
                   className="btn btn-warning bi bi-pencil"
-                  // onClick={() => setUserData(item)}
+                  // onClick={() => }
                 ></button>
                 <button
                   className="btn btn-danger bi bi-trash3"

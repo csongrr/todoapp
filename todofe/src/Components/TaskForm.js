@@ -2,18 +2,38 @@ import React, { useState } from 'react';
 import { BASE_URL } from '../data';
 import axios from 'axios';
 
-const TaskForm = ({ addTask }) => {
+const TaskForm = ({show, setShow, setTodos, todos}) => {
+
   const [values, setValues] = useState({
     title: '',
     description: '',
     deadline: '',
   });
-  const [message, setMessage] = useState(null);
+
+  const [message, setMessage] = useState({visible: '',class: '', message: '',});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
   };
+
+  function HideAndGet(){
+    setShow(false);
+
+    axios.get(BASE_URL+'todos')
+    .then(response => {
+      setTodos(response.data);
+      console.log(todos);
+    })
+    .catch(error => {
+      console.error(error);
+      
+    });
+  
+  }
+  function clearMessage() {
+    setMessage({ visible: false, class: "", message: "" });
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,16 +43,22 @@ const TaskForm = ({ addTask }) => {
       deadline: values.deadline,
     })
     .then(function (response) {
-      console.log(response);
+      setMessage({
+      visible: true,
+      class: "bg-success mesdiv",
+      message:  "Sikeresen feladat felvétel!"});
     })
     .catch(function (error) {
-      setMessage(error.response.data);
+      setMessage({ visible: true, class: "bg-danger mesdiv",message: error.response.data});
     });
     setValues({ title: '', description: '', deadline: '' });
   };
+
+
   return (
-    <div className='taskform'>
+    <div className='taskform' onClick={() => clearMessage()}>
     <form>
+      {message && <div className={message.class}  onClick={() => clearMessage()}>{message.message}</div>}
       <label>
         <span>Cím:</span>
         <input type="text" name="title" value={values.title} onChange={handleChange} />
@@ -45,7 +71,10 @@ const TaskForm = ({ addTask }) => {
         <span>Tervezett időpont</span>
         <input className="datepicker" type="date" name="deadline" value={values.deadline} onChange={handleChange} />
       </label>
-      <button className="m-2" onClick={handleSubmit}>Hozzáadás</button>
+      <div className='row'>
+      <button className="col-3" onClick={handleSubmit}>Hozzáadás</button>
+      <button className="btn btn-danger bi bi-x col-3" onClick={() => HideAndGet()}></button>
+      </div>
     </form>
     </div>
   );

@@ -17,14 +17,24 @@
     align-items: center;
     z-index: 9999;
 }
-
-form > button, .mainbutton{
+.mainbutton{
     color: var(--light);
     background-color: var(--turquoise);
     font-size: 20px;
     border: 1px solid var(--cyan);
     border-radius: 20px;
     padding: 10px 20px;
+    margin: 10px;
+}
+.row > button{
+    color: var(--light);
+    background-color: var(--turquoise);
+    font-size: 20px;
+    border: 1px solid var(--cyan);
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin: 10px;
+    width: 150px;
 }
 
 .datepicker{
@@ -33,10 +43,10 @@ form > button, .mainbutton{
 
 .taskform > form {
     background-color: var(--turquoise);
-    width: 400px;
-    height: 600px;
+    width: 500px;
+    height: 700px;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,11 +54,14 @@ form > button, .mainbutton{
 
 form input {
     height: 40px;
+    width: 400px;
     border-radius: 30px;
     padding: 7px;
+    margin-bottom: 10px;
     font-size: 16px;
     background-color: var(--cyan);
     border: 0;
+    text-align: center;
 
 }
 
@@ -56,7 +69,7 @@ textarea {
     height: 300px;
     max-height: 300px;
     min-height: 300px;
-    width: 300px;
+    width: 400px;
     resize: none!important;
     overflow: auto;
     border: 0;
@@ -76,4 +89,20 @@ form span {
 
 label{
     text-align: center;
+}
+
+.mesdiv{
+    padding: 5px;
+    color: var(--light);
+    border-radius: 10px;
+    max-width: 600px;
+    margin: auto;
+    font-size: 20px;
+    text-align: center;    
+}
+
+td{
+    max-width: 600px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis!important;
 }
