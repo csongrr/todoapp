@@ -1,22 +1,23 @@
 import './App.css';
-import {BASE_URL} from './data.js';
-import {useEffect, useState} from 'react';
-import axios from 'axios';
+import {useState} from 'react';
 import List from './Components/List';
 import TaskForm from './Components/TaskForm';
 
 function App() {
 
   const [todos, setTodos] = useState([]);
-  // const [todo, setTodo] = useState({});
-  const [show, setShow] = useState(false);
-  // const [message, setMessage] = useState(null);
-  
+  const [show, setShow] = useState(false); 
+  const [values, setValues] = useState({
+    id: '',
+    title: '',
+    description: '',
+    deadline: '',
+  });
   
   return (
     <div className="App">
-      {show && <TaskForm setShow={setShow} setTodos={setTodos} todos={todos}/>}
-      <List setShow={setShow} todos={todos} setTodos={setTodos}></List>
+      {show && <TaskForm setShow={setShow} setTodos={setTodos} todos={todos} values={values} setValues={setValues}/>}
+      <List setShow={setShow} show={show} todos={todos} setTodos={setTodos} setValues={setValues}></List>
     </div>
   );
 }
